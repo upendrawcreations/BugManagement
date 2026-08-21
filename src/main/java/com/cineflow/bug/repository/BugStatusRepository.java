@@ -1,0 +1,1 @@
+package com.cineflow.bug.repository; import com.cineflow.bug.entity.BugStatus; import org.springframework.data.jpa.repository.JpaRepository; public interface BugStatusRepository extends JpaRepository<BugStatus,Long>{}

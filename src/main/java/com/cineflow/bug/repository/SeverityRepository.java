@@ -1,0 +1,1 @@
+package com.cineflow.bug.repository; import com.cineflow.bug.entity.Severity; import org.springframework.data.jpa.repository.JpaRepository; public interface SeverityRepository extends JpaRepository<Severity,Long>{}

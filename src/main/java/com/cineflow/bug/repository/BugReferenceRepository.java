@@ -1,0 +1,1 @@
+package com.cineflow.bug.repository; import com.cineflow.bug.entity.BugReference; import java.util.*; import org.springframework.data.jpa.repository.JpaRepository; public interface BugReferenceRepository extends JpaRepository<BugReference,UUID>{ List<BugReference> findAllByBugIdOrderByCreatedAt(UUID bugId); }

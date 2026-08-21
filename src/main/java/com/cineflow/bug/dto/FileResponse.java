@@ -1,0 +1,1 @@
+package com.cineflow.bug.dto; import java.math.BigDecimal; import java.time.Instant; import java.util.UUID; public record FileResponse(UUID id,UUID bugId,String category,LookupResponse attachmentType,String fileName,String filePath,String fileUrl,String mimeType,Long fileSize,BigDecimal duration,Instant createdAt){}

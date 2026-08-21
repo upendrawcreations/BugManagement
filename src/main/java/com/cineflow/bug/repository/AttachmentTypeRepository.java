@@ -1,0 +1,1 @@
+package com.cineflow.bug.repository; import com.cineflow.bug.entity.AttachmentType; import org.springframework.data.jpa.repository.JpaRepository; public interface AttachmentTypeRepository extends JpaRepository<AttachmentType,Long>{}

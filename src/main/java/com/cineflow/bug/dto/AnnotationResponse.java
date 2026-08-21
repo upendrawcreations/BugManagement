@@ -1,0 +1,1 @@
+package com.cineflow.bug.dto; import java.time.Instant; import java.util.UUID; public record AnnotationResponse(UUID id,UUID bugId,Long frameNumber,String annotationName,LookupResponse annotationType,String reviewer,String annotationData,String imageUrl,Instant createdAt,Instant updatedAt){}

@@ -1,0 +1,1 @@
+package com.cineflow.bug.dto; import java.time.Instant; import java.util.UUID; public record FrameResponse(UUID id,UUID bugId,Long frameNumber,String timecode,LookupResponse frameType,Long startFrame,Long endFrame,Instant createdAt){}

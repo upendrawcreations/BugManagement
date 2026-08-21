@@ -1,0 +1,1 @@
+package com.cineflow.bug.repository; import com.cineflow.bug.entity.FrameType; import org.springframework.data.jpa.repository.JpaRepository; public interface FrameTypeRepository extends JpaRepository<FrameType,Long>{}

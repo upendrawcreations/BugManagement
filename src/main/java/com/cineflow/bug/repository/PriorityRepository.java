@@ -1,0 +1,1 @@
+package com.cineflow.bug.repository; import com.cineflow.bug.entity.Priority; import org.springframework.data.jpa.repository.JpaRepository; public interface PriorityRepository extends JpaRepository<Priority,Long>{}

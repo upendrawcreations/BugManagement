@@ -1,0 +1,12 @@
+package com.cineflow.bug.handler;
+import com.cineflow.bug.exception.*; import jakarta.servlet.http.HttpServletRequest; import java.time.Instant; import java.util.*; import java.util.stream.Collectors; import org.springframework.dao.DataIntegrityViolationException; import org.springframework.http.*; import org.springframework.orm.ObjectOptimisticLockingFailureException; import org.springframework.web.bind.MethodArgumentNotValidException; import org.springframework.web.bind.annotation.*; import org.springframework.web.multipart.MaxUploadSizeExceededException;
+@RestControllerAdvice public class GlobalExceptionHandler {
+  @ExceptionHandler(ResourceNotFoundException.class) ResponseEntity<ApiError> missing(Exception e,HttpServletRequest r){return error(HttpStatus.NOT_FOUND,e.getMessage(),r,Map.of());}
+  @ExceptionHandler(BusinessValidationException.class) ResponseEntity<ApiError> conflict(Exception e,HttpServletRequest r){return error(HttpStatus.CONFLICT,e.getMessage(),r,Map.of());}
+  @ExceptionHandler(DataIntegrityViolationException.class) ResponseEntity<ApiError> integrity(Exception e,HttpServletRequest r){return error(HttpStatus.CONFLICT,"Data conflicts with an existing or referenced record",r,Map.of());}
+  @ExceptionHandler(ObjectOptimisticLockingFailureException.class) ResponseEntity<ApiError> stale(Exception e,HttpServletRequest r){return error(HttpStatus.CONFLICT,"Resource was changed by another request; reload and retry",r,Map.of());}
+  @ExceptionHandler(MethodArgumentNotValidException.class) ResponseEntity<ApiError> invalid(MethodArgumentNotValidException e,HttpServletRequest r){var fields=e.getBindingResult().getFieldErrors().stream().collect(Collectors.toMap(x->x.getField(),x->Optional.ofNullable(x.getDefaultMessage()).orElse("invalid"),(a,b)->a,LinkedHashMap::new)); return error(HttpStatus.BAD_REQUEST,"Request validation failed",r,fields);}
+  @ExceptionHandler(MaxUploadSizeExceededException.class) ResponseEntity<ApiError> large(Exception e,HttpServletRequest r){return error(HttpStatus.PAYLOAD_TOO_LARGE,"Uploaded file is too large",r,Map.of());}
+  @ExceptionHandler(Exception.class) ResponseEntity<ApiError> other(Exception e,HttpServletRequest r){return error(HttpStatus.INTERNAL_SERVER_ERROR,"Unexpected server error",r,Map.of());}
+  private ResponseEntity<ApiError> error(HttpStatus s,String m,HttpServletRequest r,Map<String,String> f){return ResponseEntity.status(s).body(new ApiError(Instant.now(),s.value(),s.getReasonPhrase(),m,r.getRequestURI(),f));}
+}

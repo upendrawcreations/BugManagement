@@ -1,0 +1,1 @@
+package com.cineflow.bug.repository; import com.cineflow.bug.entity.Department; import org.springframework.data.jpa.repository.JpaRepository; public interface DepartmentRepository extends JpaRepository<Department,Long>{}
